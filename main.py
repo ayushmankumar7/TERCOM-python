@@ -2,8 +2,9 @@ import cv2
 import numpy as np 
 
 # Read image
-scene = cv2.imread("data/scene.png", 0)
-object = cv2.imread("data/object.png", 0)
+scene = cv2.imread("data/kolkata.png", 0)
+x = cv2.imread("data/kolkata.png")
+object = cv2.imread("data/k_location1.png", 0)
 
 sift = cv2.xfeatures2d.SIFT_create()
 matcher = cv2.DescriptorMatcher_create(cv2.DescriptorMatcher_FLANNBASED)
@@ -36,7 +37,8 @@ h, w, _ = object.shape
 obj_corners = np.array([[0, 0], [w - 1, 0], [w - 1, h - 1], [0, h - 1]], dtype=np.float32)
 scene_corners = cv2.perspectiveTransform(obj_corners.reshape(1, -1, 2), H).reshape(-1, 2)
 
-out = cv2.polylines(img_matches, [np.int32(scene_corners)], True, (0, 255, 0), 3)
+# out = cv2.polylines(img_matches, [np.int32(scene_corners)], True, (0, 255, 0), 3)
+out = cv2.polylines(x, [np.int32(scene_corners)], True, (0, 255, 0), 3)
 
 cv2.imshow("scene", out)
 
