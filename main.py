@@ -21,7 +21,7 @@ for m, n in matches:
     if m.distance < 0.4 * n.distance:
         good_matches.append(m)
 
-scene = cv2.drawMatches(scene, kp1, object, kp2, good_matches, None, flags=4)
+# scene = cv2.drawMatches(scene, kp1, object, kp2, good_matches, None, flags=4)
 img_matches = cv2.drawMatches(scene, kp1, object, kp2, good_matches, None, flags=4)
 
 objs, scenes = [], []
@@ -36,9 +36,9 @@ h, w, _ = object.shape
 obj_corners = np.array([[0, 0], [w - 1, 0], [w - 1, h - 1], [0, h - 1]], dtype=np.float32)
 scene_corners = cv2.perspectiveTransform(obj_corners.reshape(1, -1, 2), H).reshape(-1, 2)
 
-scene = cv2.polylines(img_matches, [np.int32(scene_corners)], True, (0, 255, 0), 3)
+out = cv2.polylines(img_matches, [np.int32(scene_corners)], True, (0, 255, 0), 3)
 
-cv2.imshow("scene", scene)
+cv2.imshow("scene", out)
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()
